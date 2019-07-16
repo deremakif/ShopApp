@@ -15,9 +15,8 @@
         </ul>
     </div>
     <div class="col-md-9">
-        <partial name="_slider" />
-
-        <div class="row">
+        
+        <div class="row ">
             @foreach (var product in Model.Products)
             {
                 <partial name="_product" for="@product" />
