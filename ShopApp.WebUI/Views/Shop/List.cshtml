@@ -3,15 +3,7 @@
 <div class="row">
     <div class="col-md-3">
         <ul class="list-group">
-            <li class="list-group-item">
-                Telefon
-            </li>
-            <li class="list-group-item">
-                Bilgisayar
-            </li>
-            <li class="list-group-item">
-                Elektronik
-            </li>
+            @await Component.InvokeAsync("CategoryList")
         </ul>
     </div>
     <div class="col-md-9">
