@@ -1,14 +1,17 @@
 ﻿@model CategoryListViewModel
 
-<ul class="list-group">
+<div class="list-group">
 
     @foreach (var item in Model.Categories)
     {
-        <li class="list-group-item">
+        <a asp-controller="Shop"
+           asp-action="List"
+           asp-route-category="@item.Name.ToLower()"
+           class="list-group-item list-group-item-action @(Model.SelectedCategory==item.Name.ToLower()?"active":"")">
             @item.Name
-        </li>
+        </a>
     }
 
 
 
-</ul>
+</div>
