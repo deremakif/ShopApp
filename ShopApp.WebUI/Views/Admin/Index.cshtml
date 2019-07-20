@@ -30,8 +30,10 @@
                     <td>@item.Price</td>
                     <td>
                         <a class="btn btn-primary btn-sm mr-2" href="/admin/products/@item.Id">Edit</a>
-                        <a class="btn btn-danger btn-sm" href="/admin/products/@item.Id">Delete</a>
-
+                        <form action="/admin/delete" method="post" style="display:inline;">
+                            <input type="hidden" name="productId" value="@item.Id" />
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
                     </td>
                 </tr>
             }
