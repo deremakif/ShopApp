@@ -9,7 +9,7 @@ namespace ShopApp.DataAccess.Abstract
 {
     public interface IProductDal:IRepository<Product>
     {
-        IEnumerable<Product> GetPopularProducts();
+        List<Product> GetProductsByCategory(string category);
 
         Product GetProductDetails(int id);
 

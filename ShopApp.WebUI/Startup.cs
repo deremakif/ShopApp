@@ -10,7 +10,6 @@ using ShopApp.Business.Abstract;
 using ShopApp.Business.Concrete;
 using ShopApp.DataAccess.Abstract;
 using ShopApp.DataAccess.Concrete.EfCore;
-using ShopApp.DataAccess.Concrete.Memory;
 using ShopApp.WebUI.Middlewares;
 
 namespace ShopApp.WebUI
@@ -43,7 +42,22 @@ namespace ShopApp.WebUI
             }
             app.UseStaticFiles();
             app.CustomStaticFiles();
-            app.UseMvcWithDefaultRoute();
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                   name: "products",
+                   template: "products/{category?}",
+                   defaults: new {controller = "Shop", action = "List"}
+               );
+
+                routes.MapRoute(
+                    name:"default",
+                    template: "{controller=Home}/{action=Index}/{id?}"
+                );
+
+
+            });
 
         }
 

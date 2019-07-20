@@ -22,7 +22,7 @@ namespace ShopApp.WebUI.Controllers
         {
             return View(new ProductListModel()
             {
-                Products = _productService.GetPopularProducts()
+                Products = _productService.GetAll()
             });
         }
     }
