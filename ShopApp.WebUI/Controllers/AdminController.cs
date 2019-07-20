@@ -21,7 +21,10 @@ namespace ShopApp.WebUI.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(new ProductListModel()
+            {
+                Products = _productService.GetAll()
+            });
         }
 
 
@@ -43,7 +46,7 @@ namespace ShopApp.WebUI.Controllers
 
             };
             _productService.Create(entity);
-            return Redirect("Index");
+            return RedirectToAction("Index");
         }
 
         public IActionResult Edit(int? id)
@@ -76,7 +79,18 @@ namespace ShopApp.WebUI.Controllers
         [HttpPost]
         public IActionResult Edit(ProductModel model)
         {
-            return Redirect("Index");
+            var entity = _productService.GetById(model.Id);
+            if (entity == null)
+            {
+                return NotFound();
+            }
+            entity.Name = model.Name;
+            entity.Description = model.Description;
+            entity.ImageUrl = model.ImageUrl;
+            entity.Price = model.Price;
+            _productService.Update(entity);
+
+            return RedirectToAction("Index");
 
         }
 
