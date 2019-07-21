@@ -11,8 +11,8 @@ namespace ShopApp.WebUI.Models
     {
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(60, MinimumLength = 2, ErrorMessage = "Ürün ismi minimum 2 karakter ve maksimum 60 karakter olmalıdır.")]
+        //[Required]
+        //[StringLength(60, MinimumLength = 2, ErrorMessage = "Ürün ismi minimum 2 karakter ve maksimum 60 karakter olmalıdır.")]
         public string Name { get; set; }
 
         [Required]
