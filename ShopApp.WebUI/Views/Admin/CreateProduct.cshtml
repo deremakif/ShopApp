@@ -9,28 +9,35 @@
 <div class="row">
     <div class="col-md-8">
         <form asp-controller="Admin" asp-action="CreateProduct" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group row">
                 <label asp-for="Name" class="col-md-2 col-form-label"></label>
                 <div class="col-md-10">
-                    <input asp-for="Name" value="" class="form-control" />
+                    <input asp-for="Name" value="@Model.Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group row">
                 <label asp-for="ImageUrl" class="col-md-2 col-form-label"></label>
                 <div class="col-md-10">
-                    <input asp-for="ImageUrl" value="" class="form-control" />
+                    <input asp-for="ImageUrl" value="@Model.ImageUrl" class="form-control" />
+                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group row">
                 <label asp-for="Description" class="col-md-2 col-form-label"></label>
                 <div class="col-md-10">
-                    <textarea id="editor" asp-for="Description" class="form-control"></textarea>
+                    <textarea id="editor" asp-for="Description" class="form-control">
+                        @Model.Description
+                    </textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group row">
                 <label asp-for="Price" class="col-md-2 col-form-label"></label>
                 <div class="col-md-10">
-                    <input asp-for="Price" value="" class="form-control" />
+                    <input asp-for="Price" value="@Model.Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
                 </div>
             </div>
 
