@@ -117,6 +117,51 @@ namespace ShopApp.WebUI.Controllers
         }
 
 
+        [HttpGet]
+        public IActionResult CreateCategory()
+        {
+            return View();
+
+        }
+
+        [HttpPost]
+        public IActionResult CreateCategory(CategoryModel model)
+        {
+            var entity = new Category()
+            {
+                Name = model.Name
+            };
+            _categoryService.Create(entity);
+            return RedirectToAction("CategoryList");
+
+        }
+
+
+        [HttpGet]
+        public IActionResult EditCategory(int id)
+        {
+            var entity = _categoryService.GetById(id);
+            return View(new CategoryModel()
+            {
+                Id = entity.Id,
+                Name = entity.Name
+            });
+        }
+
+        [HttpPost]
+        public IActionResult EditCategory(CategoryModel model)
+        {
+            var entity = _categoryService.GetById(model.Id);
+            if (entity == null)
+            {
+                return NotFound();
+            }
+            entity.Name = model.Name;
+            _categoryService.Update(entity);
+            return RedirectToAction("CategoryList");
+
+        }
+
 
 
 
