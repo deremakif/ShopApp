@@ -50,7 +50,8 @@ namespace ShopApp.WebUI.Controllers
             {
                 // generate token
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                var callbackUrl = Url.Action("ConfirmEmail", "Account", new {
+                var callbackUrl = Url.Action("ConfirmEmail", "Account", new
+                {
                     userId = user.Id,
                     token = code
                 });
@@ -58,7 +59,7 @@ namespace ShopApp.WebUI.Controllers
                 // send email
                 await _emailSender.SendEmailAsync(model.Email, "Hesabınızı Onaylayın", $"Lütfen email hesabınızı onaylamak için <a href='http://localhost:53916{callbackUrl}'>buraya</a> tıklayınız.");
 
-                return RedirectToAction("Login","Account");
+                return RedirectToAction("Login", "Account");
             }
 
             ModelState.AddModelError("", "Lütfen tekrar deneyiniz. Hata açıklaması : " + result.Errors.FirstOrDefault().Description);
@@ -78,7 +79,7 @@ namespace ShopApp.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginModel model)
         {
-           
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -131,7 +132,7 @@ namespace ShopApp.WebUI.Controllers
                 {
                     TempData["message"] = "Hesabınız onaylandı.";
                     return View();
-                }                
+                }
             }
 
             TempData["message"] = "Hesabınız onaylanmadı.";
@@ -144,7 +145,7 @@ namespace ShopApp.WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ForgotPasswordAsync(string Email)
+        public async Task<IActionResult> ForgotPassword(string Email)
         {
             if (string.IsNullOrEmpty(Email))
             {
@@ -159,10 +160,9 @@ namespace ShopApp.WebUI.Controllers
             }
 
             var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-            
+
             var callbackUrl = Url.Action("ResetPassword", "Account", new
             {
-                userId = user.Id,
                 token = code
             });
 
@@ -170,13 +170,46 @@ namespace ShopApp.WebUI.Controllers
             await _emailSender.SendEmailAsync(Email, "Reset Password", $"Parolanızı yenilemek için <a href='http://localhost:53916{callbackUrl}'>buraya</a> tıklayınız.");
 
             return RedirectToAction("Login", "Account");
-            
+
         }
-        
-        public IActionResult ResetPassword()
+
+        public IActionResult ResetPassword(string token)
         {
-            return View();
+            if (token == null)
+            {
+                return RedirectToAction("Home", "Index");
+            }
+
+            var model = new ResetPasswordModel { Token = token };
+
+
+            return View(model);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(ResetPasswordModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                return RedirectToAction("Home","Index");
+            }
+
+            var result = await _userManager.ResetPasswordAsync(user, model.Token, model.Password);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Login","Account");
+            }
+
+            return View(model);
+        }
+
 
     }
 }
