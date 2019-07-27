@@ -49,7 +49,7 @@ namespace ShopApp.WebUI.Controllers
                 return RedirectToAction("account","login");
             }
 
-            ModelState.AddModelError("", "Bilinmeyen bir hata oluştu, lütfen tekrar deneyiniz.");
+            ModelState.AddModelError("", "Lütfen tekrar deneyiniz. Hata açıklaması : " + result.Errors.FirstOrDefault().Description);
 
             return View(model);
         }
@@ -88,8 +88,15 @@ namespace ShopApp.WebUI.Controllers
 
             ModelState.AddModelError("", "Email veya parola yanlış.");
             return View();
-
-
         }
+
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return Redirect("~/");
+        }
+
+
+
     }
 }
