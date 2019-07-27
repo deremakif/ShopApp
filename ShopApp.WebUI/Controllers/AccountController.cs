@@ -138,7 +138,45 @@ namespace ShopApp.WebUI.Controllers
             return View();
         }
 
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> ForgotPasswordAsync(string Email)
+        {
+            if (string.IsNullOrEmpty(Email))
+            {
+                return View();
+            }
+
+            var user = await _userManager.FindByEmailAsync(Email);
+
+            if (user == null)
+            {
+                return View();
+            }
+
+            var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+            
+            var callbackUrl = Url.Action("ResetPassword", "Account", new
+            {
+                userId = user.Id,
+                token = code
+            });
+
+            // send email
+            await _emailSender.SendEmailAsync(Email, "Reset Password", $"Parolanızı yenilemek için <a href='http://localhost:53916{callbackUrl}'>buraya</a> tıklayınız.");
+
+            return RedirectToAction("Login", "Account");
+            
+        }
+        
+        public IActionResult ResetPassword()
+        {
+            return View();
+        }
 
     }
 }
