@@ -20,14 +20,14 @@
             <div class="text-danger">@ViewBag.ErrorMessage</div>
         }
 
-        <form asp-controller="Account" asp-action="Login" method="post">
+        <form asp-controller="Account" asp-action="Login" method="post" >
             <div asp-validation-summary="All" class="text-danger"></div>
-            
+            <input type="hidden" name="ReturnUrl" value="@Model.ReturnUrl" />
             <div class="form-group row">
-                <label asp-for="Username" class="col-md-2 col-form-label"></label>
+                <label asp-for="Email" class="col-md-2 col-form-label"></label>
                 <div class="col-md-10">
-                    <input asp-for="Username" value="@Model.Username" class="form-control" />
-                    <span asp-validation-for="Username" class="text-danger"></span>
+                    <input asp-for="Email" value="@Model.Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
             </div>
             
