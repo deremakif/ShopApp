@@ -10,7 +10,7 @@ namespace ShopApp.WebUI.EmailServices
 {
     public class EmailSender : IEmailSender
     {
-        private const string SendGridKey = "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";
+        private const string SendGridKey = "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";
         public Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
             return Execute(SendGridKey, subject, htmlMessage, email);
