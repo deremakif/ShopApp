@@ -16,6 +16,11 @@ namespace ShopApp.Business.Concrete
             _cartDal = cartDal;
         }
 
+        public Cart GetCartByUserId(string userId)
+        {
+            return _cartDal.GetByUserId(userId);
+        }
+
         public void InitializeCart(string userId)
         {
             _cartDal.Create(new Cart() { UserId = userId });
