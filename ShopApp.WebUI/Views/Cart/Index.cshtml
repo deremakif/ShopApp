@@ -7,6 +7,9 @@
 
 <div class="row mt-5">
     <div class="col-md-8">
+        <div class="text-left">
+            <h4>Cart Items</h4>
+        </div>
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -28,7 +31,7 @@
                         <td>@item.Name</td>
                         <td>@item.Price.ToString("c")</td>
                         <td>@item.Quantity</td>
-                        <td>@((item.Quantity*item.Price).ToString("c"))</td>
+                        <td>@((item.Quantity * item.Price).ToString("c"))</td>
                         <td>
                             <button class="btn btn-danger btn-sm">
                                 <i class="fa fa-times fa-fw"></i>
@@ -41,7 +44,33 @@
         </table>
     </div>
     <div class="col-md-4">
-
+        <div class="text-left">
+            <h4>Cart Summary</h4>
+        </div>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Cart Total</th>
+                    <td>@Model.TotalPrice().ToString("c")</td>
+                </tr>
+                <tr>
+                    <th>Shipping</th>
+                    <th>Free</th>
+                </tr>
+                <tr>
+                    <th>Order Total</th>
+                    <th>@Model.TotalPrice().ToString("c")</th>
+                </tr>
+            </tbody>
+        </table>
+        <div class="text-center">
+            <a href="/" class="btn btn-primary">
+                <i class="fa fa-arrow-circle-left fa-fw"></i> Continue Shopping
+            </a>
+            <a href="/checkout" class="btn btn-primary">
+                <i class="fa fa-arrow-circle-right fa-fw"></i> Checkout
+            </a>
+        </div>
     </div>
 </div>
 
