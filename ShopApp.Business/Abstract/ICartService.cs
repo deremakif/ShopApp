@@ -11,6 +11,7 @@ namespace ShopApp.Business.Abstract
 
         Cart GetCartByUserId(string userId);
 
+        void AddToCart(string userId, int productId, int quantity);
 
     }
 }
