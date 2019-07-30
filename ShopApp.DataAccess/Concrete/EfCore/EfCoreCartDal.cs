@@ -15,7 +15,7 @@ namespace ShopApp.DataAccess.Concrete.EfCore
             using (var context = new ShopContext())
             {
                 context.Carts.Update(entity);
-                context.SaveChanges();  
+                context.SaveChanges();
             }
 
 
@@ -32,6 +32,15 @@ namespace ShopApp.DataAccess.Concrete.EfCore
                             .FirstOrDefault(i => i.UserId == userId);
 
 
+            }
+        }
+
+        public void DeleteFromCart(int cartId, int productId)
+        {
+            using (var context = new ShopContext())
+            {
+                var cmd = @"delete from CartItem where CartId=@p0 And ProductId=@p1";
+                context.Database.ExecuteSqlCommand(cmd, cartId, productId);
             }
         }
     }

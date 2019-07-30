@@ -51,5 +51,13 @@ namespace ShopApp.WebUI.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public IActionResult DeleteFromCart(int productId)
+        {
+            _cartService.DeleteFromCart(_userManager.GetUserId(User), productId);
+            return RedirectToAction("Index");
+        }
+
     }
 }
