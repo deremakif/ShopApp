@@ -33,7 +33,7 @@ namespace ShopApp.WebUI
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationIdentityDbContext>(options => 
+            services.AddDbContext<ApplicationIdentityDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -82,7 +82,7 @@ namespace ShopApp.WebUI
             services.AddScoped<IProductDal, EfCoreProductDal>();
             services.AddScoped<ICategoryDal, EfCoreCategoryDal>();
             services.AddScoped<ICartDal, EfCoreCartDal>();
-            
+
             services.AddScoped<IProductService, ProductManager>();
             services.AddScoped<ICategoryService, CategoryManager>();
             services.AddScoped<ICartService, CartManager>();
@@ -93,7 +93,7 @@ namespace ShopApp.WebUI
 
             //
             //
-             
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -128,13 +128,19 @@ namespace ShopApp.WebUI
               );
 
                 routes.MapRoute(
+                   name: "checkout",
+                   template: "cart",
+                   defaults: new { controller = "Cart", action = "Checkout" }
+                );
+
+                routes.MapRoute(
                    name: "products",
                    template: "products/{category?}",
-                   defaults: new {controller = "Shop", action = "List"}
+                   defaults: new { controller = "Shop", action = "List" }
                );
 
                 routes.MapRoute(
-                    name:"default",
+                    name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}"
                 );
 
@@ -145,6 +151,6 @@ namespace ShopApp.WebUI
 
         }
 
-        
+
     }
 }
